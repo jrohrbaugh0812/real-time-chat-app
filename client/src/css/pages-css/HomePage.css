@@ -1,0 +1,71 @@
+/* HomePage.css */
+
+.homepage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.video_container {
+  width: 80%;
+  max-width: 1200px; /* Set a max width to prevent the video from becoming too large */
+  height: auto;
+  position: relative; /* Ensure the container is positioned correctly */
+}
+
+.fade-animation {
+  animation: fadeIn 5s;
+}
+  
+.video_container video {
+  width: 100%; /* Make the video take the full width of the container */
+  height: auto;
+  border-radius: 15px;
+  border: 2px solid white;
+  object-fit: cover;
+}
+  
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  z-index: 1;
+}
+  
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3rem;
+    color: white;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    color: white;
+  }
+}
+  
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 4rem;
+    color: white;
+  }
+  
+  p {
+    font-size: 1.5rem;
+    color: white;
+  }
+}
