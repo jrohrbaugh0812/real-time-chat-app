@@ -46,26 +46,45 @@
   100% { opacity: 1; }
 }
 
-@media (min-width: 768px) {
-  h1 {
+h1 {
     font-size: 3rem;
-    color: white;
-  }
-  
-  p {
-    font-size: 1.2rem;
-    color: white;
-  }
 }
-  
-@media (min-width: 1024px) {
-  h1 {
-    font-size: 4rem;
-    color: white;
-  }
-  
-  p {
-    font-size: 1.5rem;
-    color: white;
-  }
+
+p {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .video_container {
+        width: 100%; /* Make video container take the full width on smaller screens */
+        max-width: none; /* Remove max-width restriction */
+    }
+    .overlay {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 2rem;
+        color: white;
+    }
+    p {
+        font-size: 1rem;
+        color: white;
+    }
+}
+ 
+@media (max-width: 480px) {
+    .video_container {
+        width: 100%; /* Make video container take the full width on smaller screens */
+    }
+    .overlay {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 1.5rem;
+        color: white;
+    }
+    p {
+        font-size: 0.9rem;
+        color: white;
+    }
 }
