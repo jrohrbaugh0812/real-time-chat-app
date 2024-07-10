@@ -58,16 +58,16 @@ function HomePage() {
     // Render the home page with the video and overlay.
     return (
         <div className="homepage">
-        <div className={`video_container fade-animation`} key={currentVideo}>
-            <video ref={videoRef} autoPlay muted>
-            <source src={videos[0]} type="video/mp4" />
-            Your browser does not support the video tag.
-            </video>
-        </div>
-        <div className="overlay">
-            <h1>Welcome!</h1>
-            <p>Sign in <a href="http://localhost:3000">here</a>!</p>
-        </div>
+            <div className={`video_container fade-animation`} key={currentVideo}>
+                <video ref={videoRef} autoPlay muted>
+                <source src={videos[0]} type="video/mp4" />
+                Your browser does not support the video tag.
+                </video>
+            </div>
+            <div className="overlay">
+                <h1>Welcome!</h1>
+                <p>Sign in <a href="http://localhost:3000/AuthPage">here</a>!</p>
+            </div>
         </div>
     );
 }

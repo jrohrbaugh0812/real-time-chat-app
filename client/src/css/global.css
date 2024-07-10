@@ -39,3 +39,10 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+/* For words that need to be highlighted like a link but can't use <a>...</a> */
+.highlight {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}

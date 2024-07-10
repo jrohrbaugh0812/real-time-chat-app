@@ -10,8 +10,8 @@ function Navbar() {
             <h1>ChatSwiftly</h1>
             <ul>
                 <li><a href="/">Home</a></li> |
-                <li><a href="/login">Login</a></li> |
-                <li><a href="/register">Register</a></li>
+                <li><a href="/auth">Sign In</a></li> |
+                <li><a href="/auth">Register</a></li>
             </ul>
         </nav>
     )
