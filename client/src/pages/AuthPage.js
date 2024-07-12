@@ -14,13 +14,39 @@ function AuthPage() {
         setIsRegister(!isRegister);
     };
 
+    const handleSubmit = async (event, formType) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const userData = Object.fromEntries(formData.entries());
+        userData.formType = formType;
+        
+        try {
+            const url = '/api/authentication';
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            });
+    
+            if (response.ok) {
+                console.log(`${formType.charAt(0).toUpperCase() + formType.slice(1)} successful`);
+            } else {
+                console.error(`${formType.charAt(0).toUpperCase() + formType.slice(1)} failed`);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
     return (
         <div className="auth-page">
             <div className="form-container">
                 {isRegister ? (
                     <div className="register-form">
                         <h2>Register</h2>
-                        <form>
+                        <form onSubmit={(event) => handleSubmit(event, 'register')}>
                             <input type="text" placeholder="Username" required />
                             <input type="email" placeholder="Email" required />
                             <input type="password" placeholder="Password" required/>
@@ -31,8 +57,8 @@ function AuthPage() {
                 ) : (
                     <div className="sign-in-form">
                         <h2>Sign In</h2>
-                        <form>
-                            <input type="email" placeholder="Email or Username" required />
+                        <form onSubmit={(event => handleSubmit(event, 'signin'))}>
+                            <input type="text" placeholder="Email or Username" required />
                             <input type="password" placeholder="Password" required />
                             <button type="submit">Sign In</button>
                         </form>
