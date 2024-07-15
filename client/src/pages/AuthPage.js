@@ -9,6 +9,8 @@ function AuthPage() {
     // State to manage which form is currently active.
     const [isRegister, setIsRegister] = useState(true);
 
+    const [message, setMessage] = useState('');
+
     // Toggle between sign-in and register forms.
     const toggleForm = () => {
         setIsRegister(!isRegister);
@@ -19,6 +21,7 @@ function AuthPage() {
         const formData = new FormData(event.target);
         const userData = Object.fromEntries(formData.entries());
         userData.formType = formType;
+        console.log(userData);
         
         try {
             const url = '/api/authentication';
@@ -30,10 +33,12 @@ function AuthPage() {
                 body: JSON.stringify(userData)
             });
     
+            const result = await response.json();
+            setMessage(result.message || result.error);
             if (response.ok) {
-                console.log(`${formType.charAt(0).toUpperCase() + formType.slice(1)} successful`);
+                console.log(result.message);
             } else {
-                console.error(`${formType.charAt(0).toUpperCase() + formType.slice(1)} failed`);
+                console.error(result.error);
             }
         } catch (error) {
             console.error('Error:', error);
@@ -47,9 +52,9 @@ function AuthPage() {
                     <div className="register-form">
                         <h2>Register</h2>
                         <form onSubmit={(event) => handleSubmit(event, 'register')}>
-                            <input type="text" placeholder="Username" required />
-                            <input type="email" placeholder="Email" required />
-                            <input type="password" placeholder="Password" required/>
+                            <input name="username" type="text" placeholder="Username" required />
+                            <input name="email" type="email" placeholder="Email" required />
+                            <input name="password" type="password" placeholder="Password" required/>
                             <button type="submit">Register</button>
                         </form>
                         <p>Already have an account? Sign in <span className="highlight" onClick={toggleForm}>here</span></p>
@@ -58,13 +63,14 @@ function AuthPage() {
                     <div className="sign-in-form">
                         <h2>Sign In</h2>
                         <form onSubmit={(event => handleSubmit(event, 'signin'))}>
-                            <input type="text" placeholder="Email or Username" required />
-                            <input type="password" placeholder="Password" required />
+                            <input name="identifier" type="text" placeholder="Email or Username" required />
+                            <input name="password" type="password" placeholder="Password" required />
                             <button type="submit">Sign In</button>
                         </form>
                         <p>Don't have an account? Register <span className="highlight" onClick={toggleForm}>here</span></p>
                     </div>
                 )}
+                <p><hr/>{message}</p>
             </div>
         </div>
     );
