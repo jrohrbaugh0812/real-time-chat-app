@@ -2,6 +2,7 @@ const { pool } = require('../postgres-connection');
 
 async function checkIfUserExists(username, email) {
     const client = await pool.connect();
+    
     try {
         console.log('Starting database check...');
 
@@ -16,7 +17,7 @@ async function checkIfUserExists(username, email) {
         return { valid: true, message: 'No existing users'};
     } catch (error) {
         console.error('Error checking database:', error);
-        return { valid: false, message: 'Database error' };
+        return { valid: false, error: 'Database error' };
     } finally {
         client.release(); // Release the client back to the pool
     }
