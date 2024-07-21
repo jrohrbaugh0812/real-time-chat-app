@@ -26,7 +26,7 @@ function AppRoutes() {
                 localStorage.removeItem('token');
             }
         }
-    })
+    }, []);
 
     return (
         <Router>
@@ -42,7 +42,7 @@ function AppRoutes() {
                 </Route>
             </Routes>
         </Router>
-    )
+    );
 }
 
 
