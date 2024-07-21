@@ -34,10 +34,14 @@ function AuthPage() {
             });
     
             const result = await response.json();
-            setMessage(result.message || result.error);
-            if (response.ok) {
+            if (response.ok && formType === 'signin') {
                 console.log(result.message);
+                localStorage.setItem('token', response.data.token);
+                window.location.replace('/');
+            } else if (response.ok && formType === 'register') {
+                setMessage(result.message);
             } else {
+                setMessage(result.error);
                 console.error(result.error);
             }
         } catch (error) {
@@ -70,7 +74,8 @@ function AuthPage() {
                         <p>Don't have an account? Register <span className="highlight" onClick={toggleForm}>here</span></p>
                     </div>
                 )}
-                <p><hr/>{message}</p>
+                <hr/>
+                <p>{message} {isRegister ? (<span><br>You can now sign in...</br></span>) : (null)}</p>
             </div>
         </div>
     );

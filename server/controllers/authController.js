@@ -1,6 +1,14 @@
 const isValidRegistration = require('../validators/accountValidators/registrationValidator');
 const insertNewUser = require('../database_scripts/inserts/userInsert');
 const isValidSignIn = require('../validators/accountValidators/signInValidator');
+const getUser = require('../database_scripts/gets/userGet');
+const jwt = require('jsonwebtoken');
+
+const secretKey = process.env.JWT_SECRET;
+
+const generateToken = (user) => {
+    return jwt.sign({ id: user.id, username: user.username, email: user.email }, secretKey, { expiresIn: '1h' });
+};
 
 const authenticate = async (req, res) => {
     try {
@@ -28,7 +36,8 @@ const authenticate = async (req, res) => {
 
             if (validationResult.success) {
                 console.log("SUCCESSFUL SIGN IN!");
-                return res.status(200).json({ message: validationResult.message });
+                const token = generateToken(await getUser(identifier));
+                return res.status(200).json({ message: validationResult.message, token });
             } else {
                 return res.status(400).json({ error: validationResult.message || validationResult.error });
             }
