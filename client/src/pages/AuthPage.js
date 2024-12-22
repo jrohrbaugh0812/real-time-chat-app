@@ -36,9 +36,9 @@ function AuthPage() {
             const result = await response.json();
             if (response.ok && formType === 'signin') {
                 console.log(result.message);
-                localStorage.setItem('token', response.token);
+                localStorage.removeItem('token');
+                localStorage.setItem('token', result.token);
                 window.location.replace('/');
-                window.print("WOW");
             } else if (response.ok && formType === 'register') {
                 setMessage(result.message);
             } else {
