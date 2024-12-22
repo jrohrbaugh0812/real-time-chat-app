@@ -2,6 +2,8 @@
 
 import React from 'react';
 import '../css/components-css/Navbar.css';
+import '../css/global.css';
+import { isTokenValid } from '../utils/authUtils';
 
 // Main function of the file, just renders the navigation bar.
 function Navbar() {
@@ -9,12 +11,21 @@ function Navbar() {
         <nav className="navbar">
             <h1>ChatSwiftly</h1>
             <ul>
-                <li><a href="/">Home</a></li> |
-                <li><a href="/auth">Sign In</a></li> |
-                <li><a href="/auth">Register</a></li>
+                {isTokenValid() ? (
+                    <>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/dashboard">Profile</a></li>
+                    </>
+                ) : (
+                    <>
+                        <li><a href="/">Home</a></li> |
+                        <li><a href="/auth">Sign In</a></li> |
+                        <li><a href="/auth">Register</a></li>
+                    </>
+                )}
             </ul>
         </nav>
-    )
+    );
 }
 
 export default Navbar;

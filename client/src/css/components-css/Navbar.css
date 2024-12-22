@@ -1,10 +1,11 @@
-/* Navbar.css*/
+/* Navbar.css */
 
 .navbar {
     background-color: #c5aa6a;
     color: white;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 1rem;
 }
 
@@ -19,6 +20,12 @@
     display: flex;
     gap: 1rem;
     margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    margin: 0;
+    padding: 0;
 }
 
 .navbar a {

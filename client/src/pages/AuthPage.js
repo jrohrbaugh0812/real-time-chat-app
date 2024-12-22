@@ -36,8 +36,9 @@ function AuthPage() {
             const result = await response.json();
             if (response.ok && formType === 'signin') {
                 console.log(result.message);
-                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('token', response.token);
                 window.location.replace('/');
+                window.print("WOW");
             } else if (response.ok && formType === 'register') {
                 setMessage(result.message);
             } else {
@@ -75,7 +76,7 @@ function AuthPage() {
                     </div>
                 )}
                 <hr/>
-                <p>{message} {isRegister ? (<span><br>You can now sign in...</br></span>) : (null)}</p>
+                <p>{message} {isRegister ? (<span><br />You can now sign in...</span>) : (null)}</p>
             </div>
         </div>
     );
