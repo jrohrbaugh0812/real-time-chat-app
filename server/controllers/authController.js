@@ -1,7 +1,7 @@
 const isValidRegistration = require('../validators/accountValidators/registrationValidator');
 const insertNewUser = require('../database_scripts/inserts/userInsert');
 const isValidSignIn = require('../validators/accountValidators/signInValidator');
-const getUser = require('../database_scripts/gets/userGet');
+const getUserByEmailOrUsername = require('../database_scripts/gets/userGet');
 const jwt = require('jsonwebtoken');
 
 const secretKey = process.env.JWT_SECRET;
@@ -36,7 +36,7 @@ const authenticate = async (req, res) => {
 
             if (validationResult.success) {
                 console.log("SUCCESSFUL SIGN IN!");
-                const token = generateToken(await getUser(identifier));
+                const token = generateToken(await getUserByEmailOrUsername(identifier));
                 return res.status(200).json({ message: validationResult.message, token });
             } else {
                 return res.status(400).json({ error: validationResult.message || validationResult.error });

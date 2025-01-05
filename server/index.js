@@ -4,6 +4,7 @@ const app = express(); // Create an Express application
 const bodyParser = require('body-parser');
 const { pool, connectToDB } = require('./database_scripts/postgres-connection');
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 // Establish connection to postgres db.
 connectToDB();
@@ -11,7 +12,9 @@ connectToDB();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Routes
 app.use('/', authRoutes);
+app.use('/', userRoutes);
 
 // Start the server on port 5000
 app.listen(process.env.PORT, () => {
