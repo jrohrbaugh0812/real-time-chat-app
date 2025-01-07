@@ -28,3 +28,9 @@
     font-size: 1.5rem;
     margin: 10px 0;
 }
+
+ul {
+    list-style-type: none;
+    margin: 20px;
+    padding: 0;
+}

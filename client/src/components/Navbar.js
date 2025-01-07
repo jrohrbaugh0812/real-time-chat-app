@@ -9,7 +9,7 @@ import { isTokenValid } from '../utils/authUtils';
 function Navbar() {
     return (
         <nav className="navbar">
-            <h1>ChatSwiftly</h1>
+            <a href="/"><h1>ChatSwiftly</h1></a>
             <ul>
                 {isTokenValid() ? (
                     <>

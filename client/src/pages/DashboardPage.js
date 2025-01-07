@@ -43,6 +43,10 @@ function DashboardPage() {
         getUserData(); // Fetch user data on component mount.
     }, []);
 
+    const createGroup = async () => {
+
+    }
+
     if (isLoading) {
         return <div>Loading...</div>; // Show loading screen while data is being fetched
     }
@@ -56,6 +60,11 @@ function DashboardPage() {
             <div className="user-box">
                 <img src="/images/default-account-icon.png" alt="Profile" className="profile-picture" />
                 <h3 className="username">{userData.username}</h3>
+                <h4>Recent Chats:</h4>
+                <ul>
+                    <li>No recent chats</li>
+                </ul>
+                <button onClick={createGroup}>Start a new chat!</button>
             </div>
         </div>
     )
