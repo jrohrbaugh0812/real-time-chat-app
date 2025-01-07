@@ -13,7 +13,7 @@ function Navbar() {
             <ul>
                 {isTokenValid() ? (
                     <>
-                        <li><a href="/">Home</a></li>
+                        <li><a href="/">Home</a></li> |
                         <li><a href="/dashboard">Profile</a></li>
                     </>
                 ) : (

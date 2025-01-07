@@ -3,7 +3,8 @@ import '../css/global.css';
 import '../css/pages-css/DashboardPage.css';
 
 function DashboardPage() {
-const [userData, setUserData] = useState(null);
+    const [userData, setUserData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const getUserData = async () => {
         try {
@@ -32,6 +33,8 @@ const [userData, setUserData] = useState(null);
             }
         } catch (error) {
             console.error('Error: ', error);
+        } finally {
+            setIsLoading(false); // Will stop the loading text and load the page contents.
         }
         return '';
     }
@@ -39,6 +42,14 @@ const [userData, setUserData] = useState(null);
     useEffect(() => {
         getUserData(); // Fetch user data on component mount.
     }, []);
+
+    if (isLoading) {
+        return <div>Loading...</div>; // Show loading screen while data is being fetched
+    }
+
+    if (!userData) {
+        return <div>Error loading user data.</div>; // Show error if user data is null
+    }
 
     return (
         <div className="dashboard-page">
