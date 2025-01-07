@@ -46,7 +46,7 @@ function AuthPage() {
                 console.error(result.error);
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error: ', error);
         }
     };
 

@@ -28,7 +28,8 @@ async function getUserByEmailOrUsername(identifier) {
 async function getUserById(identifier) {
     const client = await pool.connect();
 
-    if (!Number.isInteger(identifier) || !identifier) {
+    identifier = parseInt(identifier, 10); // Ensure base 10
+    if (isNaN(identifier) || !Number.isInteger(identifier) || identifier <= 0) {
         return { error: "Invalid ID" };
     }
     

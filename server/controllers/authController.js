@@ -1,21 +1,21 @@
 const isValidRegistration = require('../validators/accountValidators/registrationValidator');
 const insertNewUser = require('../database_scripts/inserts/userInsert');
 const isValidSignIn = require('../validators/accountValidators/signInValidator');
-const getUserByEmailOrUsername = require('../database_scripts/gets/userGet');
+const { getUserByEmailOrUsername } = require('../database_scripts/gets/userGet');
 const jwt = require('jsonwebtoken');
 
 const secretKey = process.env.JWT_SECRET;
 
 const generateToken = (user) => {
-    return jwt.sign({ id: user.id, username: user.username, email: user.email }, secretKey, { expiresIn: '1h' });
+    return jwt.sign({ id: user.user_id, username: user.username, email: user.email }, secretKey, { expiresIn: '1h' });
 };
 
 const authenticate = async (req, res) => {
     try {
-        const { formType, username, email, password, identifier} = req.body;
-        console.log(`Form type: ${formType}, Username: ${username}, Email: ${email}, Password: ${password}`);
-        
-        if (formType === 'register') {
+        if (req.body.formType == "register") {
+            const { formType, username, email, password} = req.body;
+            console.log(`Form type: ${formType}, Username: ${username}, Email: ${email}, Password: ${password}`);    
+
             console.log('Starting registration check...');
             const validationResult = await isValidRegistration(username, email, password);
             if (!validationResult.valid) {
@@ -30,7 +30,10 @@ const authenticate = async (req, res) => {
             } else {
                 return res.status(500).json({ error: insertionResult.error });
             }
-        } else if (formType === 'signin') {
+        } else if (req.body.formType == "signin") {
+            const { identifier, password, formType} = req.body;
+            console.log(`Form type: ${formType}, Identifier: ${identifier}, Password: ${password}`);    
+
             console.log('Starting signin check...');
             const validationResult = await isValidSignIn(identifier, password);
 

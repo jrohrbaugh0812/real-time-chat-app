@@ -1,4 +1,4 @@
-const getUserById = require('../database_scripts/gets/userGet');
+const { getUserById } = require('../database_scripts/gets/userGet');
 
 const getUserInfo = async (req, res) => {
     try {
@@ -8,6 +8,7 @@ const getUserInfo = async (req, res) => {
         const userData = await getUserById(userId);
 
         if (userData) {
+            console.log(userData);
             res.status(200).json(userData); // Send user data back to the client.
         } else {
             res.status(404).json({error: 'User not found'}); // Handle case where user not found.
