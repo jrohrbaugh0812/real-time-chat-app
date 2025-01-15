@@ -5,7 +5,7 @@ async function insertNewGroup(group_name) {
     try {
         const client = await pool.connect();
         const result = await client.query(
-            'INSERT INTO Groups (group_name) VALUES ($1) RETURNING group_id', 
+            'INSERT INTO groups (group_name) VALUES ($1) RETURNING group_id', 
             [group_name]);
         const group_id = result.rows[0].group_id;
         client.release();

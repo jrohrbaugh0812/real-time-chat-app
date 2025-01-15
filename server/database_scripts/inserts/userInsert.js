@@ -7,7 +7,7 @@ async function insertNewUser(username, email, password) {
         const hashedPassword = await hashPassword(password);
 
         const client = await pool.connect();
-        await client.query('INSERT INTO Users (username, email, password_hash) VALUES ($1, $2, $3)', [username, email, hashedPassword]);
+        await client.query('INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3)', [username, email, hashedPassword]);
         client.release();
         return { success: true, message: 'Registration successful' };
     } catch (error) {
