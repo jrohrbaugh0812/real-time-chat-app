@@ -16,6 +16,6 @@ This project utilizes the **PERN stack**, which includes:
 ### Development Tools
 - **VSCode**: Used as the primary IDE for this project.
 
----
-
-Stay tuned for updates as this project evolves!
+## Pictures
+### Database Schema (ERD)
+![Database Schema](./pictures/real_time_chat_app_database_schema.png "Database Schema")
