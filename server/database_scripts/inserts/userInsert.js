@@ -1,5 +1,5 @@
 // database_scripts/inserts/userInsert.js
-const { pool } = require('../../database_scripts/postgres-connection');
+const { pool } = require('../postgres-connection');
 const hashPassword = require('../../utils/passwordUtils');
 
 async function insertNewUser(username, email, password) {
