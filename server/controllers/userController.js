@@ -21,7 +21,7 @@ const getUserInfo = async (req, res) => {
 
 const updateUserInfo = async (req, res) => {
 
-}
+};
 
 module.exports = {
     getUserInfo,
