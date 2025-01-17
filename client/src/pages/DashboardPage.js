@@ -10,7 +10,7 @@ function DashboardPage() {
     // To track when the user is creating a group.
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [groupName, setGroupName] = useState('');
-    const [memberNames, setMemberNames] = useEffect(['']); 
+    const [memberNames, setMemberNames] = useState(['']); 
 
     const getUserData = async () => {
         try {
@@ -97,59 +97,61 @@ function DashboardPage() {
             </div>
         )
     } else {
-        <div className="modal-overlay">
-            <div className="modal">
-                <h2>Create new group!</h2>
-                <form onSubmit={createGroup}>
-                    <label>
-                        Group Name:
-                        <input 
-                            type="text"
-                            value={groupName}
-                            onChange={(e) => setGroupName(e.target.value)}
-                            required
-                        />
-                    </label>
-                    <label>
-                        Members (up to 20):
-                        {memberNames.map((name, index) => (
-                            <div key={index}>
-                                <input
-                                    type="text"
-                                    value={name}
-                                    onChange={(e) => {
-                                        const updatedMembers = [...memberNames];
-                                        updatedMembers[index] = e.target.value;
-                                        setMemberNames(updatedMembers);
-                                    }}
-                                    required
-                                />
-                                {index > 0 && (
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            setMemberNames(memberNames.filter((_, i) => i !== index));
+        return (
+            <div className="modal-overlay">
+                <div className="modal">
+                    <h2>Create new group!</h2>
+                    <form onSubmit={createGroup}>
+                        <label>
+                            Group Name:
+                            <input 
+                                type="text"
+                                value={groupName}
+                                onChange={(e) => setGroupName(e.target.value)}
+                                required
+                            />
+                        </label>
+                        <label>
+                            Members (up to 20):
+                            {memberNames.map((name, index) => (
+                                <div key={index}>
+                                    <input
+                                        type="text"
+                                        value={name}
+                                        onChange={(e) => {
+                                            const updatedMembers = [...memberNames];
+                                            updatedMembers[index] = e.target.value;
+                                            setMemberNames(updatedMembers);
                                         }}
-                                    >
-                                        Remove
-                                    </button>
-                                )}
-                            </div>
-                        ))}
-                        {memberNames.length < 20 && (
-                            <button
-                                type="button"
-                                onClick={() => setMemberNames([...memberNames, ''])}
-                            >
-                                Add Member
-                            </button>
-                        )}
-                    </label>
-                    <button type="submit">Create Group</button>
-                    <button type="button" onClick={toggleModal}>Cancel</button>
-                </form>
+                                        required
+                                    />
+                                    {index > 0 && (
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setMemberNames(memberNames.filter((_, i) => i !== index));
+                                            }}
+                                        >
+                                            Remove
+                                        </button>
+                                    )}
+                                </div>
+                            ))}
+                            {memberNames.length < 20 && (
+                                <button
+                                    type="button"
+                                    onClick={() => setMemberNames([...memberNames, ''])}
+                                >
+                                    Add Member
+                                </button>
+                            )}
+                        </label>
+                        <button type="submit">Create Group</button>
+                        <button type="button" onClick={toggleModal}>Cancel</button>
+                    </form>
+                </div>
             </div>
-        </div>
+        )
     }
 }
 
