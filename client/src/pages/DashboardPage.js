@@ -56,7 +56,7 @@ function DashboardPage() {
             const response = await fetch('/api/group', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({groupName, user_ids: memberNames}),
+                body: JSON.stringify({groupName, usernames: memberNames}),
             })
             const result = await response.json();
             if (response.ok) {

@@ -1,6 +1,6 @@
 const { pool } = require('../postgres-connection');
 
-async function insertNewUserGroup(user_name, group_id, client = null) {
+async function insertNewUserGroup(username, group_id, client = null) {
     let local_client = client; // Use the passed client or create a new one.
     const is_local_client = !client; // Check if a local client needs to be managed.
 
@@ -12,12 +12,12 @@ async function insertNewUserGroup(user_name, group_id, client = null) {
         // Fetch user_id based on user_name
         const response = await local_client.query(
             'SELECT * FROM users WHERE username = $1',
-            [user_name]
+            [username]
         );
 
         if (response.rows.length === 0) {
             // Handle case where the user is not found
-            return { success: false, error: `User "${user_name}" not found` };
+            return { success: false, error: `User "${username}" not found` };
         }
 
         const user_id = response.rows[0].user_id;

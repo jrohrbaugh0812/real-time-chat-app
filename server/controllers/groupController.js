@@ -4,7 +4,7 @@ const insertNewUserGroup = require ('../database_scripts/inserts/userGroupInsert
 
 const createGroup = async (req, res) => {
     const group_name = req.body.groupName;
-    const user_ids = req.body.user_ids;
+    const usernames = req.body.usernames;
 
     const client = await pool.connect();
     try {
@@ -16,8 +16,8 @@ const createGroup = async (req, res) => {
         const group_id = group_response.group_id;
 
         // Add each user to the new group
-        for (const user_id of user_ids) {
-            const user_group_response = await insertNewUserGroup(user_id, group_id, client);
+        for (const username of usernames) {
+            const user_group_response = await insertNewUserGroup(username, group_id, client);
             if (!user_group_response.success) throw new Error(user_group_response.error);
         }
 
