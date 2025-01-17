@@ -1,6 +1,6 @@
 const { pool } = require('../database_scripts/postgres-connection');
-const { insertNewGroup } = require('../database_scripts/inserts/groupInsert');
-const { insertNewUserGroup } = require ('../database_scripts/inserts/userGroupInsert');
+const insertNewGroup = require('../database_scripts/inserts/groupInsert');
+const insertNewUserGroup = require ('../database_scripts/inserts/userGroupInsert');
 
 const createGroup = async (req, res) => {
     const group_name = req.body.groupName;
