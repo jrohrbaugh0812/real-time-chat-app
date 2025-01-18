@@ -1,6 +1,7 @@
 const { pool } = require('../database_scripts/postgres-connection');
 const insertNewGroup = require('../database_scripts/inserts/groupInsert');
 const insertNewUserGroup = require ('../database_scripts/inserts/userGroupInsert');
+const getUserGroupData = require('../database_scripts/gets/userGroupsGet');
 
 const createGroup = async (req, res) => {
     const group_name = req.body.groupName;
@@ -32,6 +33,25 @@ const createGroup = async (req, res) => {
     }
 };
 
+const getUserGroups = async (req, res) => {
+    const userId = req.params.id;
+
+    try {
+        // Fetch user group data from database
+        const userGroupsData = await getUserGroupData(userId);
+
+        if (userGroupsData) {
+            return res.status(200).json(userGroupsData);
+        } else {
+            return res.status(404).json({error: 'No groups found for this user'});
+        }
+    } catch (error) {
+        console.error('Error fetching group data for user: ', error);
+        res.status(500).json({error: 'Internal Server Error'});
+    }
+}
+
 module.exports = {
-    createGroup
+    createGroup,
+    getUserGroups
 }
