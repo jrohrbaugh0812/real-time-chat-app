@@ -7,7 +7,7 @@ function DashboardPage() {
     const [userData, setUserData] = useState(null);
     const [groupData, setGroupData] = useState(null);
     const [isUserDataLoading, setIsUserDataLoading] = useState(true);
-    const [isGroupDataLoading, setIsGroupDataLoading] = userState(true);
+    const [isGroupDataLoading, setIsGroupDataLoading] = useState(true);
 
     // To track when the user is creating a group.
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -77,6 +77,7 @@ function DashboardPage() {
         } finally {
             setIsGroupDataLoading(false); // Will stop the loading text and load the page contents.
         }
+        return '';
     }
 
     // This is what determines if the create group form is showing.
@@ -105,7 +106,9 @@ function DashboardPage() {
     }
 
     useEffect(() => {
-        getUserData(); // Fetch user data on component mount.
+        // Fetch relevant data on component mount.
+        getUserData();
+        getGroupData();
     }, []);
 
     if (isUserDataLoading && isGroupDataLoading) {
@@ -124,7 +127,13 @@ function DashboardPage() {
                     <h3 className="username">{userData.username}</h3>
                     <h4>Recent Chats:</h4>
                     <ul>
-                        <li>No recent chats</li>
+                        {Array.isArray(groupData) && groupData.length > 0 ? (
+                            groupData.map((group) => (
+                                <li key={group.group_id}>{group.group_name}</li>
+                            ))
+                        ) : (
+                            <li>No recent chats</li>
+                        )}
                     </ul>
                     <button onClick={toggleModal}>Start a new chat!</button>
                 </div>
