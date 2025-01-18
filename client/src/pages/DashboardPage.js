@@ -3,9 +3,11 @@ import '../css/global.css';
 import '../css/pages-css/DashboardPage.css';
 
 function DashboardPage() {
-    // To track user data and whether it has loaded in.
+    // To track user data and group data and whether they have loaded in.
     const [userData, setUserData] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [groupData, setGroupData] = useState(null);
+    const [isUserDataLoading, setIsUserDataLoading] = useState(true);
+    const [isGroupDataLoading, setIsGroupDataLoading] = userState(true);
 
     // To track when the user is creating a group.
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -40,9 +42,41 @@ function DashboardPage() {
         } catch (error) {
             console.error('Error: ', error);
         } finally {
-            setIsLoading(false); // Will stop the loading text and load the page contents.
+            setIsUserDataLoading(false); // Will stop the loading text and load the page contents.
         }
         return '';
+    }
+
+    const getGroupData = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No token found in local storage');
+                return;
+            }
+
+            const userId = JSON.parse(atob(token.split('.')[1])).id;
+            const url = `api/group/${userId}`;
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'applications/json',
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                setGroupData(result); // Update state
+                console.log(groupData);
+            } else {
+                console.error(result.error);
+            }
+        } catch (error) {
+            console.error('Error: ', error);
+        } finally {
+            setIsGroupDataLoading(false); // Will stop the loading text and load the page contents.
+        }
     }
 
     // This is what determines if the create group form is showing.
@@ -74,7 +108,7 @@ function DashboardPage() {
         getUserData(); // Fetch user data on component mount.
     }, []);
 
-    if (isLoading) {
+    if (isUserDataLoading && isGroupDataLoading) {
         return <div>Loading...</div>; // Show loading screen while data is being fetched
     }
 
